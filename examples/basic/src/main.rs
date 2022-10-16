@@ -1,8 +1,11 @@
 use jewerly::client::Client;
 
+use std::env;
+
 
 #[tokio::main]
 async fn main() {
-    let mut client = Client::new();
-    client.connect().await;
+    let token = env::var("DISCORD_TOKEN").unwrap();
+    let mut client = Client::new(token);
+    client.login().await;
 }
