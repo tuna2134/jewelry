@@ -25,7 +25,8 @@ impl Client {
     }
 
     pub async fn connect(&mut self) {
-        let gateway_url = self.http.get_gateway().await;
+        let mut gateway_url = self.http.get_gateway().await;
+        gateway_url = format!("{}?v=10&encoding=json", gateway_url.to_string());
         let (ws, _) = connect_async(
             Url::parse(&gateway_url).unwrap()
         ).await.unwrap();
@@ -37,6 +38,7 @@ impl Client {
     }
 
     pub async fn start(&mut self) {
+        self.login().await;
         self.connect().await;
     }
 }

@@ -47,7 +47,7 @@ impl HttpClient {
         .await
         .unwrap();
         let data: Value = res.json().await.unwrap();
-        data["url"].as_str().unwrap().to_string()
+        data["url"].to_string()
     }
 
 }
