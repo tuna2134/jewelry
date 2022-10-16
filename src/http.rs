@@ -38,4 +38,16 @@ impl HttpClient {
         .unwrap();
         res.json().await.unwrap()
     }
+
+    pub async fn get_gateway(&self) -> String {
+        let res = self.request(
+            Method::GET, "/gateway/bot"
+        )
+        .send()
+        .await
+        .unwrap();
+        let data: Value = res.json().await.unwrap();
+        data["url"].as_str().unwrap().to_string()
+    }
+
 }
