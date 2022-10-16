@@ -4,6 +4,8 @@ use reqwest::{
     Method,
 };
 
+use crate::types::user::User;
+
 
 pub struct HttpClient {
     pub session: Client,
@@ -25,5 +27,15 @@ impl HttpClient {
             method, &format!("{}{}", self.baseurl, endpoint)
         )
         .header("Authorization", &format!("Bot {}", self.token))
+    }
+
+    pub async fn get_current_user(&self) -> User {
+        let res = self.request(
+            Method::GET, "/users/@me"
+        )
+        .send()
+        .await
+        .unwrap();
+        res.json().await.unwrap()
     }
 }
