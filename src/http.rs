@@ -4,7 +4,7 @@ use reqwest::{
     Method,
 };
 
-use crate::types::user::User;
+use serde_json::Value;
 
 
 pub struct HttpClient {
@@ -29,7 +29,7 @@ impl HttpClient {
         .header("Authorization", &format!("Bot {}", self.token))
     }
 
-    pub async fn get_current_user(&self) -> User {
+    pub async fn get_current_user(&self) -> Value {
         let res = self.request(
             Method::GET, "/users/@me"
         )
