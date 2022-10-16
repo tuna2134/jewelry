@@ -29,8 +29,8 @@ impl Client {
         self.gateway = Some(gateway::DiscordGateway::new(ws));
     }
 
-    pub async fn login(&mut self) {
-        self.http.get_current_user().await;
+    pub async fn login(&mut self) -> serde_json::Value {
+        self.http.get_current_user().await
     }
 
     pub async fn start(&mut self) {
