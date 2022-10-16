@@ -1,4 +1,4 @@
-use jewerly::client::Client;
+use jewelry::Client;
 
 use std::env;
 
