@@ -1,9 +1,10 @@
 use tokio_tungstenite::connect_async;
 use url::Url;
-use reqwest::Method;
 
-use crate::gateway;
-use crate::http;
+use crate::{
+    gateway,
+    http,
+};
 
 
 pub struct Client {
@@ -29,14 +30,7 @@ impl Client {
     }
 
     pub async fn login(&mut self) {
-        let res = self.http.request(
-            Method::GET, "/users/@me"
-        )
-        .send()
-        .await
-        .unwrap();
-        let user = res.text().await.unwrap();
-        println!("{:?}", user);
+        self.http.get_current_user().await;
     }
 
     pub async fn start(&mut self) {
