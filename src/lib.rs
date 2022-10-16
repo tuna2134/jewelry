@@ -3,4 +3,4 @@ pub mod gateway;
 pub mod http;
 
 
-use crate::client::Client;
+pub use crate::client::Client;
