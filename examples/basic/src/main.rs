@@ -1,4 +1,4 @@
-use jewerly::Client;
+use jewerly::client::Client;
 
 
 #[tokio::main]
