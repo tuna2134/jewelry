@@ -36,7 +36,8 @@ impl Client {
         .send()
         .await
         .unwrap();
-        println!("{:?}", res);
+        let user = res.text().await.unwrap();
+        println!("{:?}", user);
     }
 
     pub async fn start(&mut self) {
