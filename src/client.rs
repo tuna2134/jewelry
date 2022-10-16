@@ -32,7 +32,6 @@ impl Client {
         let res = self.http.request(
             Method::GET, "/users/@me"
         )
-        .header("Authorization", &format!("Bot {}", self.token))
         .send()
         .await
         .unwrap();
