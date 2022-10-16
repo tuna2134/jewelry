@@ -1,14 +1,11 @@
-use tokio_tungstenite::connect_async;
-use url::Url;
-
 use crate::{
-    gateway,
+    gateway::DiscordGateway,
     http,
 };
 
 
 pub struct Client {
-    pub gateway: Option<gateway::DiscordGateway>,
+    pub gateway: Option<DiscordGateway>,
     pub http: http::HttpClient,
     pub token: String,
     pub user: Option<serde_json::Value>,
@@ -25,12 +22,10 @@ impl Client {
     }
 
     pub async fn connect(&mut self) {
-        let (ws, _) = connect_async(
-            Url::parse(
-                "wss://gateway.discord.gg/?v=10&encoding=json&compress=zlib-stream"
-            ).unwrap()
-        ).await.unwrap();
-        self.gateway = Some(gateway::DiscordGateway::new(ws));
+        let gateway = DiscordGateway::from_client(
+            "wss://gateway.discord.gg/?v=10&encoding=json&compress=zlib-stream"
+        ).await;
+        self.gateway = Some(gateway);
     }
 
     pub async fn login(&mut self) {
