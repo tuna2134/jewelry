@@ -28,7 +28,7 @@ impl Client {
         let gateway_url = self.http.get_gateway().await;
         let (ws, _) = connect_async(
             Url::parse(
-                &format!("{}?v=10&encoding=json", gateway_url.to_string())
+                &format!("{}?v=10&encoding=json", gateway_url)
             ).unwrap()
         ).await.unwrap();
         self.gateway = Some(gateway::DiscordGateway::new(ws));
