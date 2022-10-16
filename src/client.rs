@@ -25,10 +25,9 @@ impl Client {
     }
 
     pub async fn connect(&mut self) {
-        let gateway_url = self.http.get_gateway().await;
         let (ws, _) = connect_async(
             Url::parse(
-                &format!("{}?v=10&encoding=json", gateway_url)
+                "wss://gateway.discord.gg/?v=10&encoding=json&compress=zlib-stream"
             ).unwrap()
         ).await.unwrap();
         self.gateway = Some(gateway::DiscordGateway::new(ws));
